@@ -1,0 +1,10 @@
+#To trigger S3 with AWS Lambda, we will have to use S3 event in the code as shown below −
+
+exports.handler = function(event, context, callback) {
+   console.log("Incoming Event: ", event);
+   const bucket = event.Records[0].s3.bucket.name;
+   const filename = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
+   const message = `File is uploaded in - ${bucket} -> ${filename}`;
+   console.log(message);
+   callback(null, message);
+};
